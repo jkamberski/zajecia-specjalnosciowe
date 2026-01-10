@@ -13,6 +13,14 @@
 
     <!-- Włączenie Spring MVC -->
     <mvc:annotation-driven/>
+    <!-- Zadanie 3: DataSource dla HSQLDB -->
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
+        <property name="url" value="jdbc:hsqldb:mem:microblog"/>
+        <property name="username" value="sa"/>
+        <property name="password" value=""/>
+    </bean>
 
     <!-- Skanowanie kontrolerów -->
     <context:component-scan base-package="pl.atins.microblog.controller"/>
