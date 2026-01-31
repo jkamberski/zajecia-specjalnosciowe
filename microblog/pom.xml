@@ -97,6 +97,12 @@
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <!-- Spring JDBC (to Mati jest potrzebne do DriverManagerDataSource) -->
+             <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-jdbc</artifactId>
+    <version>${spring.version}</version>
+         </dependency>
 
         <!-- Spring WebMVC -->
         <dependency>
