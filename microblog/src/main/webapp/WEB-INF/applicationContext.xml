@@ -30,7 +30,7 @@
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <!-- pakiet, w którym będą encje (na start może być szeroko) -->
-        <property name="packagesToScan" value="pl.atins.microblog"/>
+        <property name="packagesToScan" value="pl.microblog.model"/>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
         </property>
