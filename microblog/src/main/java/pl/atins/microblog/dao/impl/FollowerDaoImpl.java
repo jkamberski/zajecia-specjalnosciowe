@@ -1,4 +1,4 @@
-package pl.microblog.dao.impl;
+package pl.atins.microblog.dao.impl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -6,8 +6,8 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import pl.microblog.dao.FollowerDao;
-import pl.microblog.model.Follow;
+import pl.atins.microblog.dao.FollowerDao;
+import pl.atins.microblog.model.Follower;
 
 @Transactional
 public class FollowerDaoImpl implements FollowerDao {
@@ -17,7 +17,7 @@ public class FollowerDaoImpl implements FollowerDao {
 
     @Override
     public void follow(long followerId, long followedId) {
-        Follow f = new Follow();
+        Follower f = new Follower();
         f.setFollowerId(followerId);
         f.setFollowedId(followedId);
         entityManager.persist(f);
@@ -25,13 +25,13 @@ public class FollowerDaoImpl implements FollowerDao {
 
     @Override
     public void unfollow(long followerId, long followedId) {
-        TypedQuery<Follow> q = entityManager.createQuery(
-                "SELECT f FROM Follow f WHERE f.followerId = :fid AND f.followedId = :foid",
-                Follow.class);
+        TypedQuery<Follower> q = entityManager.createQuery(
+                "SELECT f FROM Follower f WHERE f.followerId = :fid AND f.followedId = :foid",
+                Follower.class);
         q.setParameter("fid", followerId);
         q.setParameter("foid", followedId);
 
-        for (Follow f : q.getResultList()) {
+        for (Follower f : q.getResultList()) {
             entityManager.remove(f);
         }
     }
@@ -39,7 +39,7 @@ public class FollowerDaoImpl implements FollowerDao {
     @Override
     public boolean isFollowing(long followerId, long followedId) {
         TypedQuery<Long> q = entityManager.createQuery(
-                "SELECT COUNT(f) FROM Follow f WHERE f.followerId = :fid AND f.followedId = :foid",
+                "SELECT COUNT(f) FROM Follower f WHERE f.followerId = :fid AND f.followedId = :foid",
                 Long.class);
         q.setParameter("fid", followerId);
         q.setParameter("foid", followedId);

@@ -1,10 +1,10 @@
-package pl.atins.microblog;
+package pl.atins.microblog.model;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "follower")
-public class Follower {
+@Table(name = "wpis")
+public class Wpis {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
