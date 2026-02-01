@@ -1,4 +1,4 @@
-package pl.atins.microblog;
+package pl.atins.microblog.model;
 
 import javax.persistence.*;
 
