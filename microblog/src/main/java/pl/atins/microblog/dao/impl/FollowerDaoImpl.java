@@ -4,11 +4,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import pl.atins.microblog.dao.FollowerDao;
 import pl.atins.microblog.model.Follower;
 
+@Repository
 @Transactional
 public class FollowerDaoImpl implements FollowerDao {
 
@@ -43,7 +45,6 @@ public class FollowerDaoImpl implements FollowerDao {
                 Long.class);
         q.setParameter("fid", followerId);
         q.setParameter("foid", followedId);
-
         return q.getSingleResult() > 0;
     }
 }

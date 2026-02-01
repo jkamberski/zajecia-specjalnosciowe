@@ -1,5 +1,7 @@
 package pl.atins.microblog.dao.impl;
 
+
+import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.atins.microblog.dao.WiadomoscDao;
 import pl.atins.microblog.model.Wpis;
 
+@Repository
 @Transactional
 public class WiadomoscDaoImpl implements WiadomoscDao {
 
