@@ -4,11 +4,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import pl.atins.microblog.dao.UzytkownikDao;
 import pl.atins.microblog.model.Uzytkownik;
 
+@Repository
 @Transactional
 public class UzytkownikDaoImpl implements UzytkownikDao {
 
