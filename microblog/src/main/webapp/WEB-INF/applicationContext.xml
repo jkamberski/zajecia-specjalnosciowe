@@ -52,5 +52,9 @@
 
     <!-- Włączenie @Transactional -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
+           <!-- Lab 5 Zad 4 – DAO beans -->
+    <bean id="uzytkownikDao" class="pl.microblog.dao.impl.UzytkownikDaoImpl"/>
+    <bean id="followerDao" class="pl.microblog.dao.impl.FollowerDaoImpl"/>
+    <bean id="wiadomoscDao" class="pl.microblog.dao.impl.WiadomoscDaoImpl"/>
 
 </beans>
