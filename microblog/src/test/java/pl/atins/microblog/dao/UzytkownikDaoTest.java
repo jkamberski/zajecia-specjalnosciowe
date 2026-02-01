@@ -1,44 +1,38 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="
-        http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd">
+package pl.atins.microblog.dao;
 
-    <context:component-scan base-package="pl.atins.microblog.dao"/>
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
-    <bean id="dataSource"
-          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
-        <property name="url" value="jdbc:hsqldb:mem:testdb"/>
-        <property name="username" value="sa"/>
-        <property name="password" value=""/>
-    </bean>
+import pl.atins.microblog.model.Uzytkownik;
 
-    <bean id="entityManagerFactory"
-          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="packagesToScan" value="pl.atins.microblog.model"/>
-        <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
-        </property>
-        <property name="jpaProperties">
-            <props>
-                <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
-                <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
-                <prop key="hibernate.show_sql">true</prop>
-            </props>
-        </property>
-    </bean>
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:applicationContext-test.xml")
+@Transactional
+public class UzytkownikDaoTest {
 
-    <bean id="transactionManager"
-          class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory"/>
-    </bean>
+    @Autowired
+    private UzytkownikDao uzytkownikDao;
 
-    <tx:annotation-driven/>
+    @Test
+    public void shouldRegisterAndFindUserByLogin() {
+        Uzytkownik u = new Uzytkownik();
+        u.setUsername("jan");   // jeśli u Ciebie pole nazywa się inaczej, patrz uwaga niżej
 
-</beans>
+        uzytkownikDao.registerUser(u);
+
+        Uzytkownik found = uzytkownikDao.findByLogin("jan");
+        Assert.assertNotNull(found);
+        Assert.assertEquals("jan", found.getUsername());
+    }
+
+    @Test
+    public void shouldReturnNullWhenUserNotFound() {
+        Uzytkownik found = uzytkownikDao.findByLogin("nie-istnieje");
+        Assert.assertNull(found);
+    }
+}
